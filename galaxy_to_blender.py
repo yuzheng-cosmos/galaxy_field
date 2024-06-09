@@ -102,7 +102,7 @@ def import_images_and_distribute(image_folder, volume_size, num_images=None, col
         )
 
 # Folder containing the images
-image_folder = '/Users/yuzheng/Downloads/galaxy_field/cropped_images'
+image_folder = 'path'
 
 # Size of the cube volume (e.g., 100)
 volume_size = 30
