@@ -1,4 +1,4 @@
-# Galaxy Field
+# Galaxy Field in Blender
 
 Galaxy Field is a set of Python scripts designed to import galaxy images into Blender, automatically adjusting transparency, emission, and other properties to create stunning galaxy scenes.
 
@@ -25,3 +25,4 @@ Galaxy Field is a set of Python scripts designed to import galaxy images into Bl
 - `color_ramp_positions`: Positions for the color ramp to adjust transparency (default is `[0.3, 0.7]`).
 
 
+The file `save_crop.jsx` is an automated code for saving the Photoshop selection area to an image file. To use it, copy and paste the file to `/Applications/Adobe Photoshop 2024/Presets/Scripts`. In Photoshop, edit shortcuts and assign a shortcut key to `File > Scripts > save_crop`. Then, select a region in the image and press the hotkey to trigger the save selection script.
