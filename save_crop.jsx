@@ -31,7 +31,7 @@ if (app.documents.length > 0) {
     newDoc.trim(TrimType.TRANSPARENT, true, true, true, true);
 
     // Generate the filename with incrementing number
-    var outputFolder = "/Users/yuzheng/Downloads/galaxy_field/cropped_images"; // Change this to your desired folder
+    var outputFolder = "path"; // Change this to your desired folder
     var saveFile = generateFilename(outputFolder, "crop", ".png");
 
     // Save the new document as a PNG file
