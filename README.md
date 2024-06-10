@@ -26,3 +26,6 @@ Galaxy Field is a set of Python scripts designed to import galaxy images into Bl
 
 ## Additional code for cropping images in Photoshop
 The file `save_crop.jsx` is an automated code for saving the Photoshop selection area to an image file. To use it, copy and paste the file to `/Applications/Adobe Photoshop 2024/Presets/Scripts`. In Photoshop, edit shortcuts and assign a shortcut key to `File > Scripts > save_crop`. Then, select a region in the image and press the hotkey to trigger the save selection script.
+
+An example video that produced using this code can be found at [https://x.com/EC_Euclid/status/1799857365275312459](https://x.com/EC_Euclid/status/1799857365275312459).
+
