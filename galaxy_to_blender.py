@@ -7,6 +7,13 @@ def import_images_and_distribute(image_folder, volume_size, num_images=None, col
     bpy.ops.object.select_all(action='SELECT')
     bpy.ops.object.delete(use_global=False)
 
+    # Create an empty object to act as the global transparency controller
+    controller = bpy.data.objects.new("Transparency_Controller", None)
+    bpy.context.collection.objects.link(controller)
+
+    # Add a custom property to the controller for global transparency
+    controller["global_transparency"] = 1.0
+
     # Get all image files in the folder
     image_files = [f for f in os.listdir(image_folder) if f.lower().endswith(('.png', '.jpg', '.jpeg', '.tiff', '.bmp', '.gif'))]
     
@@ -67,8 +74,26 @@ def import_images_and_distribute(image_folder, volume_size, num_images=None, col
         
         mat.node_tree.links.new(rgb_to_bw.outputs["Val"], color_ramp.inputs["Fac"])
         
-        # Connect the Color Ramp output to Mix Shader Fac
-        mat.node_tree.links.new(color_ramp.outputs["Color"], mix_shader.inputs["Fac"])
+        # Add a Math Node to multiply the color ramp output with global transparency
+        transparency_math = mat.node_tree.nodes.new(type="ShaderNodeMath")
+        transparency_math.operation = 'MULTIPLY'
+        
+        mat.node_tree.links.new(color_ramp.outputs["Color"], transparency_math.inputs[0])
+        transparency_math.inputs[1].default_value = 1.0  # This will be controlled by the driver
+        
+        # Add driver to the second input of the transparency_math node
+        driver = transparency_math.inputs[1].driver_add("default_value").driver
+        driver.type = 'SCRIPTED'
+        
+        var = driver.variables.new()
+        var.name = 'global_transparency'
+        var.targets[0].id = controller
+        var.targets[0].data_path = '["global_transparency"]'
+        
+        driver.expression = 'global_transparency'
+        
+        # Connect the transparency_math output to the Mix Shader Fac input
+        mat.node_tree.links.new(transparency_math.outputs["Value"], mix_shader.inputs["Fac"])
         
         # Connect Emission and Transparent shaders to Mix Shader
         mat.node_tree.links.new(transparent.outputs["BSDF"], mix_shader.inputs[1])
@@ -102,13 +127,13 @@ def import_images_and_distribute(image_folder, volume_size, num_images=None, col
         )
 
 # Folder containing the images
-image_folder = 'path'
+image_folder = '/Users/yuzheng/Downloads/galaxy_field/cropped_images'
 
 # Size of the cube volume (e.g., 100)
-volume_size = 30
+volume_size = 10
 
 # Number of images to import (None means import all images)
-num_images = None
+num_images = 10
 
 # Color ramp positions for transparency (adjust as needed)
 color_ramp_positions = [0,0.7]
