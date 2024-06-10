@@ -114,9 +114,9 @@ def import_images_and_distribute(image_folder, volume_size, num_images=None, col
 
         # Randomly position the plane within the volume
         plane.location = (
-            random.uniform(-volume_size / 2, volume_size / 2),
-            random.uniform(-volume_size / 2, volume_size / 2),
-            random.uniform(-volume_size / 2, volume_size / 2)
+            random.uniform(-volume_size[0] / 2, volume_size[0] / 2),
+            random.uniform(-volume_size[1] / 2, volume_size[1] / 2),
+            random.uniform(-volume_size[2] / 2, volume_size[2] / 2)
         )
 
         # Randomly rotate the plane
@@ -127,13 +127,13 @@ def import_images_and_distribute(image_folder, volume_size, num_images=None, col
         )
 
 # Folder containing the images
-image_folder = '/Users/yuzheng/Downloads/galaxy_field/cropped_images'
+image_folder = 'path'
 
 # Size of the cube volume (e.g., 100)
-volume_size = 10
+volume_size = [10,30,10]
 
 # Number of images to import (None means import all images)
-num_images = 10
+num_images = None
 
 # Color ramp positions for transparency (adjust as needed)
 color_ramp_positions = [0,0.7]
